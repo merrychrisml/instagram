@@ -13,3 +13,15 @@ class Post(models.Model):
 
     def __str__(self):
         return f"{self.message} by {self.author}"
+
+    class Meta:
+        ordering = ["-id"]
+
+
+class Comment(models.Model):
+    post = models.ForeignKey(
+        Post, on_delete=models.CASCADE, limit_choices_to={"is:public": True}
+    )
+    message = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
