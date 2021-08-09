@@ -1,44 +1,40 @@
+{% extends "instagram/layout.html" %}
 {% load bootstrap4 %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
-    <title>Post List</title>
-</head>
-<body>
-    <table class='table table-bordered table-hover'>
-        <form action="" method="get">
-            <input type="text" name="q" value="{{ q }}"/>
-            <input type="submit" value="검색" />
-        </form>
-        <tbody>
-            {% for post in post_list %}
-                <tr>
-                    <td>
-                        {{post.pk}}
-                    </td>
-                    <td>
-                        {% if post.photo %}
-                            <img src="{{ post.photo.url }}" style="width: 100px;" />
-                        {% else %}
-                            No Photo
-                        {% endif %}
-                    </td>
-                    <td>
-                        <a href="{{ post.get_absolute_url }}">
-                            {{post.message}}    
-                        </a>
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    {% if is_paginated %}
-        {% bootstrap_pagination page_obj size="small" justify_content="center" %}
-    {% endif %}
-</body>
-</html>
+{% block title %}
+    Post list / Instagram
+{% endblock title %}
+    
+{% block content %}
+<table class='table table-bordered table-hover'>
+    <form action="" method="get">
+        <input type="text" name="q" value="{{ q }}"/>
+        <input type="submit" value="검색" />
+    </form>
+    <tbody>
+        {% for post in post_list %}
+            <tr>
+                <td>
+                    {{post.pk}}
+                </td>
+                <td>
+                    {% if post.photo %}
+                        <img src="{{ post.photo.url }}" style="width: 100px;" />
+                    {% else %}
+                        No Photo
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{{ post.get_absolute_url }}">
+                        {{post.message}}    
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% if is_paginated %}
+    {% bootstrap_pagination page_obj size="small" justify_content="center" %}
+{% endif %}
+{% endblock content %}
+
