@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 from django.core.validators import MinLengthValidator
+from django.urls import reverse
 
 
 class Post(models.Model):
@@ -14,6 +15,9 @@ class Post(models.Model):
 
     def __str__(self):
         return f"{self.message} by {self.author}"
+
+    def get_absolute_url(self):
+        return reverse('instagram:post_detail', args=[self.pk])
 
     class Meta:
         ordering = ["-id"]
